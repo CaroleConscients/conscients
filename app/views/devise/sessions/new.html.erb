@@ -29,7 +29,8 @@
         </div>
         <%= f.submit t('.sign_up'), class: "btn conscients-btn btn-green w-100 mt-3" %>
       <% end %>
-    <button class="fb-connect-btn-w"><%= link_to t('.sign_in_with_provider', provider: OmniAuth::Utils.camelize(:facebook)), omniauth_authorize_path(resource_name, :facebook) %></button>
+
+    <button class="fb-connect-btn-w"><%= link_to t('.sign_in_with_provider', provider: OmniAuth::Utils.camelize(:facebook)), omniauth_authorize_path(resource_name, :facebook), method: :post %></button>
     </div>
 
     <div class="login-box">

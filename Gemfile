@@ -34,7 +34,8 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise_invitable'
 gem 'gibbon'
-gem 'omniauth-facebook', '~> 5.0'
+gem 'omniauth-facebook'
+gem 'omniauth-rails_csrf_protection'
 gem 'postmark-rails'
 
 gem 'activeadmin'
@@ -62,6 +63,7 @@ gem 'kaminari'
 gem 'pg_search'
 gem 'wicked_pdf'
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'wkhtmltopdf-binary', '~> 0.12'
 end
 group :production, :staging do

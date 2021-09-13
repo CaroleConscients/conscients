@@ -62,6 +62,7 @@ gem 'kaminari'
 gem 'pg_search'
 gem 'wicked_pdf'
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'wkhtmltopdf-binary', '~> 0.12'
 end
 group :production, :staging do

@@ -180,13 +180,13 @@ class Order < ApplicationRecord
     return 0 if email?
 
     line_items.inject(0) do |sum, line_item|
-      line_item.tree? ? sum + PRINTING_FEES * line_item.quantity : sum
+      line_item.tree? ? sum + PRINTING_FEES : sum
     end
   end
 
   def total_weight
-    if line_items.includes(:product_sku).map(&:product_sku).compact.present?
-      line_items.includes(:product_sku).sum(&:product_weight) || 0
+    if line_items.any?(&:product_sku)
+      line_items.sum(&:shipping_weight) || 0
     else
       0
     end
@@ -267,7 +267,7 @@ class Order < ApplicationRecord
   def translated_hash_permitted_events
     Hash[I18n.t('activerecord.attributes.order.aasm_events')
              .select { |k, _| permitted_events_names.include?(k) }
-         .values.zip(permitted_events_names)]
+             .values.zip(permitted_events_names)]
   end
 
   def delivery_is_billing?

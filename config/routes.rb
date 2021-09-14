@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # noise
+  # https://rollbar.com/conscients/conscients/items/53/
+  match '/', to: 'pages#home', via: :options
+  match '/shop/cart.php', to: 'pages#home', via: :options
+
   respond200 = ['wp-login.php']
   respond200.each do |r2|
     get "/#{r2}", to: proc { [200, {}, ['']] }
@@ -62,6 +65,16 @@ Rails.application.routes.draw do
     end
     resource :klm_files, only: [] do
       scope module: :klm_files do
+        resources :downloads, only: :new
+      end
+    end
+    resource :producer_presentations, only: [] do
+      scope module: :producer_presentations do
+        resources :downloads, only: :new
+      end
+    end
+    resource :project_presentations, only: [] do
+      scope module: :project_presentations do
         resources :downloads, only: :new
       end
     end

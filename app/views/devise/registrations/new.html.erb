@@ -29,7 +29,7 @@
     </div>
   <% end %>
 
-  <button class="fb-connect-btn-w"><%= link_to t('.sign_in_with_provider', provider: OmniAuth::Utils.camelize(:facebook)), omniauth_authorize_path(resource_name, :facebook) %></button>
+  <button class="fb-connect-btn-w"><%= link_to t('.sign_in_with_provider', provider: OmniAuth::Utils.camelize(:facebook)), omniauth_authorize_path(resource_name, :facebook), method: :post %></button>
 
   </div>
 </div>

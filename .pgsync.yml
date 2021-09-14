@@ -25,8 +25,8 @@ groups:
     - active_storage_attachments
     - active_storage_blobs
     - addresses
-    - ahoy_events
-    - ahoy_visits
+    # - ahoy_events
+    # - ahoy_visits
     - blog_posts
     - categories
     - categorizations
@@ -37,6 +37,7 @@ groups:
     - mobility_string_translations
     - mobility_text_translations
     - stock_entries
+    - product_tree_plantations
   # user:
   #   users: "WHERE id = {1}"
   #   orders: "WHERE user_id = {1}"

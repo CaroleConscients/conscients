@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+ruby '3.0.2'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'pg', '>= 0.18'
-gem 'puma', '~> 3.11'
+gem 'pg'
+gem 'puma'
 gem 'rails', '6.0.4.1'
 gem 'rexml'
 
@@ -23,7 +24,7 @@ gem 'redis'
 
 gem 'bootsnap', require: false
 gem 'oj'
-gem 'rollbar', '~> 2.15'
+gem 'rollbar'
 
 gem 'sidekiq'
 gem 'sidekiq-failures'
@@ -36,6 +37,7 @@ gem 'devise_invitable'
 gem 'gibbon'
 gem 'omniauth-facebook'
 gem 'oauth2'
+gem 'omniauth-rails_csrf_protection'
 gem 'postmark-rails'
 
 gem 'activeadmin'
@@ -56,14 +58,19 @@ gem 'responders'
 
 gem 'aasm'
 gem 'money-rails'
-gem 'paypal-sdk-rest', '~> 1.7'
-gem 'stripe', '~> 5.1.1'
+gem 'paypal-sdk-rest'
+gem 'stripe'
 
 gem 'kaminari'
-gem 'pg_search', '~> 2.1'
-gem 'wicked_pdf', '~> 1.1'
-gem 'wkhtmltopdf-binary', '~> 0.12'
-gem 'wkhtmltopdf-heroku', '~> 2.12', '>= 2.12.4.0'
+gem 'pg_search'
+gem 'wicked_pdf'
+group :development, :test do
+  gem 'dotenv-rails'
+  gem 'wkhtmltopdf-binary', '~> 0.12'
+end
+group :production, :staging do
+  gem 'wkhtmltopdf-heroku', '~> 2.12', '>= 2.12.4.0'
+end
 
 gem 'country_select'
 gem 'font-awesome-rails'
@@ -81,6 +88,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails'
+  gem 'webdrivers'
   gem 'selenium-webdriver'
   # gem 'factory_bot'
   gem 'factory_bot_rails'
@@ -102,11 +110,10 @@ group :development do
   gem 'bullet'
   # Generate schéma of database automatically in erd.pdf
   gem 'rails-erd'
-  gem 'table_print'
-  gem 'xray-rails'
 
   gem 'brakeman', require: false
   gem 'overcommit'
+  gem 'ruby-graphviz'
   gem 'rubocop-rails', require: false
 
   gem 'guard'
@@ -116,5 +123,4 @@ group :development do
 
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'web-console'
 end

@@ -27,8 +27,13 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    locale = params.fetch(:locale, I18n.default_locale).to_sym
-    I18n.locale = I18n.exists? locale ? locale : I18n.default_locale
+    return I18n.default_locale if params[:locale].present? && !locale_exists?
+
+    I18n.locale = params.fetch(:locale, I18n.default_locale).to_sym
+  end
+
+  def locale_exists?
+    I18n.available_locales.include?(params[:locale].to_sym)
   end
 
   def default_url_options
@@ -55,7 +60,9 @@ class ApplicationController < ActionController::Base
   end
 
   def track_action
-    ahoy.track 'Action', request.path_parameters
+    ahoy.track('Action',
+      request.path_parameters.each{ |k,v| v.dup.gsub!('\\u0000', '') }
+    )
   end
 
   def configure_permitted_parameters
@@ -81,6 +88,7 @@ class ApplicationController < ActionController::Base
     id = @cart.payment_intent_id
     @cart.update payment_intent_id: nil
     Stripe::PaymentIntent.cancel id
-  rescue Stripe::InvalidRequestError
+  rescue Stripe::InvalidRequestError => e
+    Rails.logger.error e
   end
 end

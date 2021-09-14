@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'pg', '>= 0.18'
 gem 'puma', '~> 3.11'
 gem 'rails', '6.0.4.1'
+gem 'rexml'
 
 gem 'friendly_id-mobility'
 # Content translation (like Globalize but much better) --> https://github.com/shioyama/mobility
@@ -34,6 +35,7 @@ gem 'devise-i18n'
 gem 'devise_invitable'
 gem 'gibbon'
 gem 'omniauth-facebook'
+gem 'oauth2'
 gem 'postmark-rails'
 
 gem 'activeadmin'

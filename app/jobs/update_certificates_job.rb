@@ -16,7 +16,11 @@ class UpdateCertificatesJob < ApplicationJob
   private
 
   def set_view
-    @view = ActionView::Base.new('app/views', {}, ActionController::Base.new)
+    @view = ActionView::Base.new(
+      ActionView::Base.build_lookup_context(ActionController::Base.view_paths),
+      {},
+      ActionController::Base.new
+    )
     @view.extend(ApplicationHelper)
     @view.extend(Rails.application.routes.url_helpers)
   end

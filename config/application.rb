@@ -26,6 +26,7 @@ module Conscients
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    config.autoloader = :classic
 
     config.time_zone = 'Paris'
 
@@ -37,8 +38,6 @@ module Conscients
 
     config.autoload_paths << Rails.root.join('app', 'models', 'sitemaps')
     config.autoload_paths << Rails.root.join('app', 'models', 'support')
-    config.eager_load_paths << Rails.root.join('app', 'models', 'sitemaps')
-    config.eager_load_paths << Rails.root.join('app', 'models', 'support')
 
     # Don't generate system test files.
     config.generators.system_tests = nil

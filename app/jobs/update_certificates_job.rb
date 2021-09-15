@@ -8,26 +8,15 @@ class UpdateCertificatesJob < ApplicationJob
 
   def perform(tree_plantation_id)
     @tree_plantation = TreePlantation.find(tree_plantation_id)
-    set_view
     generate_certificates
     send_update_emails
   end
 
   private
 
-  def set_view
-    @view = ActionView::Base.new(
-      ActionView::Base.build_lookup_context(ActionController::Base.view_paths),
-      {},
-      ActionController::Base.new
-    )
-    @view.extend(ApplicationHelper)
-    @view.extend(Rails.application.routes.url_helpers)
-  end
-
   def generate_certificates
     @tree_plantation.line_items.paid.each do |line_item|
-      line_item.generate_certificate(@view)
+      line_item.generate_certificate
     end
   end
 

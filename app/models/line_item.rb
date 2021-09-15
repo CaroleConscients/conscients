@@ -137,14 +137,14 @@ class LineItem < ApplicationRecord
     self.ht_price_cents = quantity * product_ht_price_cents.to_i
   end
 
-  def generate_certificate(view)
-    pdf = WickedPdf.new.pdf_from_string(
-      view.render(template: 'certificates/new', layout: 'layouts/pdf',
-                   locals: { '@line_item': self,
-                             '@background_url': url_certificate },
-                   margin: { top: 0, bottom: 0, left: 0, right: 0 }),
-      orientation: 'Landscape'
+  def generate_certificate
+    pdf_html = ActionController::Base.new.render_to_string(
+      template: 'certificates/new',
+      locals: { '@line_item': self, '@background_url': url_certificate },
+      margin: { top: 0, bottom: 0, left: 0, right: 0 },
+      layout: 'layouts/pdf'
     )
+    pdf = WickedPdf.new.pdf_from_string(pdf_html, orientation: 'Landscape')
     certificate.attach(io: StringIO.new(pdf),
                                 filename: "certificate##{id}.pdf",
                                 content_type: 'application/pdf')

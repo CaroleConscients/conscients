@@ -288,34 +288,6 @@ class Order < ApplicationRecord
     delivery_address&.email.presence || client_email
   end
 
-  def generate_invoice
-    pdf_html = ActionController::Base.new.render_to_string(
-      template: 'invoices/new',
-      locals: { '@order': self, '@delivery_address': delivery_address,
-        '@billing_address': billing_address },
-      layout: 'layouts/pdf'
-    )
-    pdf = WickedPdf.new.pdf_from_string(pdf_html)
-    invoice.attach(
-      io: StringIO.new(pdf),
-      filename: "invoice##{id}.pdf",
-      content_type: 'application/pdf'
-    )
-
-    pdf
-  end
-
-  def generate_certificates
-    certificate_files = {}
-    line_items.each do |line_item|
-      next if line_item.tree_plantation.nil?
-
-      certificate_files[line_item.id] = line_item.generate_certificate
-    end
-
-    certificate_files
-  end
-
   private
 
   def process_order

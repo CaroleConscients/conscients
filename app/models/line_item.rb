@@ -146,10 +146,8 @@ class LineItem < ApplicationRecord
     )
     pdf = WickedPdf.new.pdf_from_string(pdf_html, orientation: 'Landscape')
     certificate.attach(io: StringIO.new(pdf),
-                       filename: "certificate##{id}.pdf",
-                       content_type: 'application/pdf')
-
-    pdf
+                                filename: "certificate##{id}.pdf",
+                                content_type: 'application/pdf')
   end
 
   def shipping_weight
@@ -184,7 +182,7 @@ class LineItem < ApplicationRecord
   end
 
   def decrement_stock_quantities
-    product_sku.decrement(:quantity, added_quantity)      unless tree_or_personalized?
+    product_sku.decrement(:quantity, added_quantity)     unless tree_or_personalized?
     tree_plantation&.decrement(:quantity, added_quantity) if tree_or_personalized?
   end
 

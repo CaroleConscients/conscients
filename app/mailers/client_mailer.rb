@@ -11,15 +11,10 @@ class ClientMailer < ApplicationMailer
 
   def order_confirmation
     @order = params[:order]
-
-    invoice = @order.generate_invoice
-    attachments['invoice.pdf'] = invoice
-
-    certificate_files = @order.generate_certificates
-    certificate_files.each do |line_item_id, certificate_file|
-      attachments["certificate##{line_item_id}.pdf"] = certificate_file
+    attachments['invoice.pdf'] = @order.invoice.download
+    @order.line_items.certificated.each do |line_item|
+      attachments["certificate##{line_item.id}.pdf"] = line_item.certificate.download
     end
-
     mail to: @order.delivery_address_email
   end
 

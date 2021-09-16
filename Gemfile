@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '2.7.3'
+ruby '3.0.2'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'pg'
 gem 'puma'
-gem 'rails', '~> 5.2'
+gem 'rails', '6.1.4.1'
+gem 'rexml'
+gem 'image_processing'
 
 gem 'friendly_id-mobility'
 # Content translation (like Globalize but much better) --> https://github.com/shioyama/mobility
@@ -35,6 +37,7 @@ gem 'devise-i18n'
 gem 'devise_invitable'
 gem 'gibbon'
 gem 'omniauth-facebook'
+gem 'oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem 'postmark-rails'
 
@@ -83,8 +86,6 @@ gem 'pretender' # login as any user
 group :development, :test do
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'factory_bot_rails'
-  gem 'faker'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails'

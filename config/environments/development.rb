@@ -37,7 +37,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
-  config.active_job.queue_adapter = :inline
+  config.active_job.queue_adapter = :sidekiq
 
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.raise_delivery_errors = false
@@ -72,11 +72,11 @@ Rails.application.configure do
   Bullet.enable = true
   # Bullet.alert = true
   # Could not find ways to fix the n+1 problems bellow. Could used a refactor if you find a way
-  Bullet.add_whitelist type: :n_plus_one_query,
+  Bullet.add_safelist type: :n_plus_one_query,
                        class_name: 'ActiveStorage::Attachment', association: :blob
-  Bullet.add_whitelist type: :n_plus_one_query,
+  Bullet.add_safelist type: :n_plus_one_query,
                        class_name: 'Category', association: :text_translations
-  Bullet.add_whitelist type: :n_plus_one_query,
+  Bullet.add_safelist type: :n_plus_one_query,
                        class_name: 'Product', association: :text_translations
   config.middleware.insert_after ActionDispatch::Static, Rack::LiveReload
 end
